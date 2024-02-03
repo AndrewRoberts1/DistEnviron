@@ -1,0 +1,55 @@
+.messageList {
+    list-style-type: none;
+    padding: 1rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 88vh;
+    /* max-width: 50rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; */
+}
+
+.recievedLI {
+    text-align: start;
+}
+
+.sentLI {
+    text-align: end;
+}
+
+.sentMessage {
+    background-color: #b8b8b8;
+    float: right;
+    display: block;
+    
+
+}
+
+.recievedMessage {
+    background-color: #FE5F55;
+}
+
+.message {
+    margin: 0.5rem;
+    padding: 0.4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 10px;
+    max-width: 80%;
+    text-align: start;
+}
+.messageCont {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sentPadd {
+    width: 25%;
+    height: 10px;
+}
+
+.recievedPadd {
+    width: 25%;
+    height: 10px;
+}
