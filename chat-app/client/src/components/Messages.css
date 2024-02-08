@@ -4,10 +4,9 @@
     overflow-y: scroll;
     overflow-x: hidden;
     height: 88vh;
-    /* max-width: 50rem;
-    display: block;
-    margin-left: auto;
-    margin-right: auto; */
+    border-width: 1px;
+    border-style: solid;
+    border-color: #7A9E9F;
 }
 
 .recievedLI {
