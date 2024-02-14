@@ -1,21 +1,22 @@
 import './App.css';
-import Navbar from './components/NavBar';
-import Messages from './components/Messages';
-import MessageForm from './components/MessageForm';
-import { useState } from 'react';
+import ChatPage from './components/ChatPage';
+import Login from './components/Login';
+import { HashRouter, Route, Routes } from "react-router-dom";
 
 //Server imports
 import socketIO from 'socket.io-client';
+
 const socket = socketIO.connect('http://localhost:4000');
 
 function App() {
-  const [activeChatId, setActiveChatId] = useState();
+
   return (
-    <div className="App">
-      <Navbar activeChatId={activeChatId} setActiveChatId={setActiveChatId}></Navbar>
-      <Messages></Messages>
-      <MessageForm></MessageForm>
-    </div>
+    <HashRouter>
+        <Routes>
+          <Route path="/" element={<Login socket={socket} />}></Route>
+          <Route path="/chat" element={<ChatPage socket={socket} />}></Route>
+        </Routes>
+    </HashRouter>
   );
 }
 
