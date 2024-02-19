@@ -35,11 +35,28 @@ socketIO.on('connection', (socket) => {
     //Listen for a new user being added
     socket.on('newUser', (data) => {
       
-      //add new user to list of users
-      users.push(data);
+      //check if user is not already in the array
+      if (!users.some(user => user.userId == data.userId)) {
+        //add new user to list of users
+        users.push(data);
+      }
+      
       console.log(users);
       //Send the list of users to the client
       socketIO.emit('userList', users);
+    });
+  //Listen for a new user being added
+  socket.on('removeUser', (data) => {
+      
+    //remove user from list of users
+    users.forEach((user, index) => {
+      if (user.userId == data.userId) {
+        users = users.slice(index);
+      }
+    });
+    console.log(users);
+    //Send the list of users to the client
+    socketIO.emit('userList', users);
   });
     socket.on('disconnect', () => {
         //Message on disconnect

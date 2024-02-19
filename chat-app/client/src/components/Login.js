@@ -88,7 +88,7 @@ function Login({socket}) {
     //Locally store the current users info
     localStorage.setItem('user', JSON.stringify(user));
     //share current users info with all users
-    socket.emit('newUser', {name: user.name, userId: user._id});
+    socket.emit('newUser', {name: user.name, userId: user._id, socketId: socket.id});
     //Go to chat page
     navigate('/chat');
     

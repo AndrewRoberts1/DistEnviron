@@ -2,9 +2,12 @@
     background-color: #7A9E9F;
     height: 6vh;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
   }
+  .flex-grow {
+    flex-grow: 1;
+}
   
   .menu-bars {
     margin-left: 2rem;
@@ -34,7 +37,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 8px 0px 8px 16px;
+    padding: 8px 16px 8px 16px;
     list-style: none;
     min-height: 6vh;
   }

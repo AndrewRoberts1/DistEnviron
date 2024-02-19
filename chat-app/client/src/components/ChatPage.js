@@ -11,12 +11,20 @@ function ChatPage({socket}) {
   //Navigate to log in if no user found in local storage
   const user = JSON.parse(localStorage.getItem('user'));
   useEffect(()=>{
-    if (!user) navigate('/');
+    if (!user) {
+      navigate('/');
+    } else {
+      //If user is found on start up then send to socket
+      socket.emit('newUser', {name: user.name, userId: user._id, socketId: socket.id});
+    }
   }, [user])
+
+  console.log('the user is : ', user)
+  console.log(' this users socket id is: ', socket.socketId)
 
   return (
     <div className="App">
-      <Navbar socket={socket} activeChatId={activeChatId} setActiveChatId={setActiveChatId} />
+      <Navbar socket={socket} activeChatId={activeChatId} setActiveChatId={setActiveChatId} user={user} />
       <Messages socket={socket} user={user} />
       <MessageForm socket={socket} user={user} />
     </div>
