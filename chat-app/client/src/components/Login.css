@@ -1,0 +1,67 @@
+.loginPage{
+    background-color: #7A9E9F;
+    height: 100vh;
+    font-size: 18px;
+}
+
+.loginForm {
+    padding-top: 20vh;
+    justify-content: center;
+}
+.col {
+    text-align: center;
+}
+
+.loginDetailsDivider {
+    margin: 0 auto;
+    width: 15rem; 
+    background-color: white;
+}
+.loginInput, .loginInput:focus {
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    margin: 1rem;
+    outline: none;
+    
+}
+::placeholder {
+    color: white;
+}
+
+.errMsg {
+    color: white;
+    margin: 10px;
+}
+
+.accMsg {
+    margin-top: 10px;
+    margin-left: 0;
+    color: white;
+}
+
+.loginBtn {
+    margin: 2rem;
+    font-size: 20px;
+    padding: 6px;
+    padding-left: 15px;
+    padding-right: 15px;
+    outline: none;
+    border-radius: 10px;
+    border-style: solid;
+    
+    color: white;
+}
+
+.submitBtn {
+    border-color: #FE5F55;
+    background-color: #FE5F55;
+}
+
+.registerBtn {
+    border-color: #b8b8b8;
+    background-color: #b8b8b8;
+    margin-top: 10px;
+}

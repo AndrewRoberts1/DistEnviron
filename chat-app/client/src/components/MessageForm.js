@@ -1,10 +1,11 @@
 import './MessageForm.css';
 import { IoIosSend } from "react-icons/io";
 import { GrAttachment } from "react-icons/gr";
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function MessageForm ({socket, user}) {
   const [message, setMessage] = useState('');
+  const [file, setFile] = useState('');
   const fileInputRef=useRef();
 
   const handleSendMessage = (e) => {
@@ -13,22 +14,46 @@ function MessageForm ({socket, user}) {
     // if (message.trim() && localStorage.getItem('userName')) {
       socket.emit('message', {
         text: message,
-        // name: localStorage.getItem('userName'),
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
         senderId:user['_id'],
         senderName: user['name'],
-        sentTime: new Date()
+        sentTime: new Date(),
+        file: file
       });
     // }
     setMessage('');
+    setFile('')
   };
+  
+  
+  function handleAddFile(event) {
+    //Get the first file added
+    const file = event.target.files[0];
+    
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    //Wait for reader to have loaded
+    reader.onload = () => {
+      //Make object for file
+      const fileData = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        data: reader.result //Send all results - mime and Base64
+      };
+      //Set new file
+      setFile(fileData);
+      
+    }
+  }
+
     
   return (
     <div className='messageFormCont'>
       <form className="messageForm" onSubmit={handleSendMessage}>
         <button className='attachBtn' onClick={()=>fileInputRef.current.click()}> <GrAttachment className='largeIcon'/></button>
-        <input  multiple={false} ref={fileInputRef} type='file'hidden/>
+        <input  multiple={false} ref={fileInputRef} type='file' hidden onChange={(e)=>handleAddFile(e)}/>
         <textarea 
           required={true}
           className='messageBox'

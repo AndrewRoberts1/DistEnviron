@@ -52,3 +52,15 @@
     width: 25%;
     height: 10px;
 }
+
+
+.vertical-line {
+    border-left: 1px solid black;
+    height: 100%;
+    width: 1px;
+    margin: 10px;
+  }
+
+  .downloadBtn {
+    text-align: center !important;
+  }

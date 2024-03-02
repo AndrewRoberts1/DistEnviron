@@ -43,7 +43,7 @@ function Navbar({activeChatId, setActiveChatId, socket, user}) {
             
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items' onClick={showSidebar}>
+          {/* <ul className='nav-menu-items' onClick={showSidebar}>
             <li className='navbar-toggle navText'>
                 <AiIcons.AiOutlineClose className='largeIcon' />
             </li>
@@ -52,16 +52,16 @@ function Navbar({activeChatId, setActiveChatId, socket, user}) {
                 <div key={'div'+index}>
                     <li key={index} className={"navText " + (item.chatId == activeChatId ? "activeChat" : "")} onClick={() => {setActiveChatId(item.chatId)}}>
                         {/* <button className='chatBtn' onClick={() => {setActiveChatId(item.chatId)}}> */}
-                            {item.icon}
+                            {/* {item.icon}
                             <span key={'title'+index}>{item.title}</span>
                         {/* </button> */}
                         
-                    </li>
-                    <hr key={'divider'+index}/>
+                    {/* </li> */}
+                    {/* <hr key={'divider'+index}/>
                 </div>
               );
             })}
-          </ul>
+          // </ul> */} 
 
           {/* current user list */}
           <ul className='nav-menu-items' onClick={showSidebar}>

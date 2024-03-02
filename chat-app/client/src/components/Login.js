@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './Login.css'
 
 const API_URL = 'http://localhost:4000/api';
 
@@ -14,7 +15,7 @@ function Login({socket}) {
   //Used to display error on page
   const [showErr, setShowErr] = useState(false);
   //Used to toggle between loggin in and creating account
-  const [loginPage, setLoginPage] = useState(false);
+  const [loginPage, setLoginPage] = useState(true);
 
   const handleCreateUser = async (e) => {
     e.preventDefault();
@@ -95,9 +96,63 @@ function Login({socket}) {
   }
 
   return (
-    <div className="App">
-      <form onSubmit={loginPage ? handleLogin: handleCreateUser}>
-        <label>Name</label>
+    <div className="loginPage">
+      <form onSubmit={loginPage ? handleLogin: handleCreateUser} className='loginForm'>
+        <div className='col '>
+          <div className='row'>
+            <input
+              required={true}
+              type='text'
+              name="userName"
+              id="userName"
+              value={userName}
+              placeholder={"Name"}
+              className='loginInput'
+              onChange={(e) => setUserName(e.target.value)}
+            />
+            <hr className='loginDetailsDivider'/>
+          </div>
+          <div className='row'>
+            <input
+              required={true}
+              type='text'
+              name="email"
+              id="email"
+              value={email}
+              placeholder={"Email"}
+              className='loginInput'
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <hr className='loginDetailsDivider'/>
+          </div>
+          <div className='row'>
+            <input
+              required={true}
+              type='text'
+              name="password"
+              id="password"
+              value={password}
+              placeholder={"Password"}
+              className='loginInput'
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <hr className='loginDetailsDivider'/>
+          </div>
+          {//Show error
+            showErr ? <h4 className='errMsg'>There was an error. Please try again</h4> : null
+          }
+          <div className='row'>
+            <button type='submit' className="loginBtn submitBtn">{loginPage ? "Login" : "Create Account"}</button>
+          </div>
+          <div className='row'>
+            <span className='accMsg'>{loginPage ? "Don't have an account yet?" : "Already have an account?"}</span>
+          </div>
+          <div className='row'>
+            <button className="loginBtn registerBtn" onClick={()=> setLoginPage(!loginPage)}>{loginPage ? "Register" : "Login"}</button>
+          </div>
+
+        </div>
+        {/* <label>Name</label>
         <input
           required={true}
           type='text'
@@ -134,13 +189,10 @@ function Login({socket}) {
           </>
           : 
           null} */}
-          <button type='submit' className="loginBtn">{loginPage ? "Login In" : "Create Account"}</button>
-          {/* let users swap between logging in and creating an account */}
+          {/* <button type='submit' className="loginBtn">{loginPage ? "Login In" : "Create Account"}</button>
           <button onClick={()=> setLoginPage(!loginPage)}>{loginPage ? "Not have an account? Click here" : "Already have an account? Click here"}</button>
 
-          {//Show error
-            showErr ? <h4>error</h4> : null
-          }
+          */}
 
           
       </form>
