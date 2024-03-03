@@ -2,6 +2,7 @@
   text-align: center;
   height: 100vh;
   /* max-width: 50rem; */
+  overflow: hidden;
   margin: auto;
 }
 

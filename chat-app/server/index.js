@@ -123,10 +123,10 @@ app.post('/api/users', async (req, res) => {
         console.error(error);
         res.status(500).send('Internal server error');
     }
-  });
+});
   
-  // Login Endpoint
-  app.post('/api/login', async (req, res) => {
+// Login Endpoint
+app.post('/api/login', async (req, res) => {
     try {
         const { name, email, password } = req.body;
         const user = await db.collection('users').findOne({ name: name, email: email });
@@ -143,4 +143,20 @@ app.post('/api/users', async (req, res) => {
         console.error(error);
         res.status(500).send('Internal server error');
     }
-  });
+});
+
+app.get('/api/getMsgs', async (req, res) => {
+    try {
+        const messages = await db.collection('messages').find({}).toArray();
+        if (!messages) {
+            return res.status(404).send('Messages not found');
+        } else {
+            //if messages found respond with them
+            res.status(200).json(messages);
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
+})

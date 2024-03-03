@@ -11,9 +11,14 @@
     border-color: black;
 }
 
-.messageBox {
+.messageArea {
     height: 100%;
     width: 80%;
+}
+
+.messageBox {
+    /* height: 100%; */
+    width: 100%;
     border-radius: 0%;
     border-width: 1px;
     border-color: #7A9E9F;

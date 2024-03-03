@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import './Messages.css';
 import { TbDownload } from "react-icons/tb";
+const API_URL = 'http://localhost:4000/api';
 
 function Messages ({socket, user}) {
    const [messages, setMessages] = useState([]);
@@ -14,7 +15,35 @@ function Messages ({socket, user}) {
     useEffect(() => {
       //Scroll to bottom every time messages change
       lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
+
+      //Get messages from data base
+      if (messages.length == 0){
+        getMessages();
+      }
     }, [messages]);
+
+    async function getMessages() {
+      return await fetch(`${API_URL}/getMsgs`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to create user');
+        }
+        return response.json(); // Parse the response body as JSON
+      })
+      //Successful response
+      .then(response => {
+        console.log('response: ', response)
+        setMessages(response);
+      })
+      //Handle errors
+      .catch(error => {
+        console.error('Error getting messages:', error);
+      });
+    }
 
 
     async function handleDownload(file) {

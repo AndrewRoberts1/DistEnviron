@@ -1,5 +1,6 @@
 import './MessageForm.css';
 import { IoIosSend } from "react-icons/io";
+import * as AiIcons from 'react-icons/ai';
 import { GrAttachment } from "react-icons/gr";
 import { useEffect, useRef, useState } from 'react';
 
@@ -47,20 +48,37 @@ function MessageForm ({socket, user}) {
       
     }
   }
-
-    
+  
+  function handleRemoveFile () {
+    setFile('');
+  }
+    console.log('thge file is, ',file)
+    console.log('thge file length is, ',file.length)
   return (
     <div className='messageFormCont'>
       <form className="messageForm" onSubmit={handleSendMessage}>
         <button className='attachBtn' onClick={()=>fileInputRef.current.click()}> <GrAttachment className='largeIcon'/></button>
         <input  multiple={false} ref={fileInputRef} type='file' hidden onChange={(e)=>handleAddFile(e)}/>
-        <textarea 
-          required={true}
-          className='messageBox'
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type a message"
-          type="text" />
+          <div className='messageArea'>
+            <textarea 
+              required={true}
+              className='messageBox'
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type a message"
+              type="text"
+              style={{height: file ? '50%': '100%'}}
+            />
+            {
+              file ?
+              <div style={{ display: 'flex', alignItems: 'center', height: '45%', textAlign: 'center' }}>
+                <span>{file.name.length > 30 ? file.name.slice(0,30)+'...' : file.name}</span>
+                <AiIcons.AiOutlineClose className='largeIcon' onClick={()=>handleRemoveFile()}/> 
+              </div>:
+              null
+            }
+            
+          </div>
         <button className='sendBtn' type='submit'> <IoIosSend className='largeIcon'/></button>
       </form>
     </div>

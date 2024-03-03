@@ -152,47 +152,6 @@ function Login({socket}) {
           </div>
 
         </div>
-        {/* <label>Name</label>
-        <input
-          required={true}
-          type='text'
-          name="userName"
-          id="userName"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}/>
-          <label>Email</label>
-          <input
-          required={true}
-          type='text'
-          name="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}/>
-          <label>Password</label>
-          <input
-          required={true}
-          type='text'
-          name="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}/>
-          {/* {!loginPage ?
-          <>
-            <label >Profile photo</label>
-            <input
-            required={!loginPage}
-            type='file'
-            accept="image/*"
-            name="image"
-            id="image"
-            onChange={handleImageChange} />
-          </>
-          : 
-          null} */}
-          {/* <button type='submit' className="loginBtn">{loginPage ? "Login In" : "Create Account"}</button>
-          <button onClick={()=> setLoginPage(!loginPage)}>{loginPage ? "Not have an account? Click here" : "Already have an account? Click here"}</button>
-
-          */}
 
           
       </form>
