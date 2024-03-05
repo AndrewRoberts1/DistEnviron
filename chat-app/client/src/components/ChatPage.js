@@ -19,9 +19,6 @@ function ChatPage({socket}) {
     }
   }, [user])
 
-  console.log('the user is : ', user)
-  console.log(' this users socket id is: ', socket.socketId)
-
   return (
     <div className="App">
       <Navbar socket={socket} activeChatId={activeChatId} setActiveChatId={setActiveChatId} user={user} />

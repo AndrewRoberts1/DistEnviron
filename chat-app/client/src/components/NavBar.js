@@ -28,8 +28,6 @@ function Navbar({activeChatId, setActiveChatId, socket, user}) {
     navigate('/');
   }
 
-  console.log('users arr' ,users)
-
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>

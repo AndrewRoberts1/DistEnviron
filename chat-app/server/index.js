@@ -16,14 +16,26 @@ const socketIO = require('socket.io')(http, {
     },
     maxHttpBufferSize: 1e8 // This sets the maximum HTTP buffer size to 100MB
 });
+//Import the rate limiter to protect endpoints
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+ windowMs: 15 * 60 * 1000, // 15 minutes
+ max: 100, // limit each IP to 100 requests per windowMs
+});
+
+//Use the rate limiter across all app requests
+app.use(limiter);
+
 //Use cors
 app.use(cors());
 //Used to parse json bodies
 app.use(express.json());
+// Apply to all requests
 
 //MongoDb connection
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://admin:H3SBThRYcLOWpDu0@distchat.ejyyxwq.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://admin:MQzAejunoSaEjgL2@distchat.ejyyxwq.mongodb.net/?retryWrites=true&w=majority&appName=DistChat";
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -38,11 +50,24 @@ const dbMutex = new Mutex();
 
 async function connectToDatabase() {
     try {
+        //Connect to Mongo db
         await client.connect();
+        //Log that connection has occured when complete
         console.log("Connected to MongoDB");
+        //Set the relevant database as a variable
         db = client.db("DistChat");
     } catch (error) {
-        console.error("Error connecting to MongoDB:", error);
+        //Log specific error
+        if (error instanceof MongoClient.MongoServerError) {
+            //Handle server errors
+            console.error("MongoDB server error:", error.message);
+        } else if (error instanceof MongoClient.MongoNetworkError) {
+            //Handle network errors
+            console.error("MongoDB network error:", error.message);
+        } else {
+            //Handle generic errors
+            console.error("General MongoDB error:", error.message);
+        }
     }
 }
 
@@ -147,6 +172,7 @@ app.post('/api/login', async (req, res) => {
 
 app.get('/api/getMsgs', async (req, res) => {
     try {
+        //Get all messages
         const messages = await db.collection('messages').find({}).toArray();
         if (!messages) {
             return res.status(404).send('Messages not found');

@@ -12,7 +12,6 @@ function MessageForm ({socket, user}) {
   const handleSendMessage = (e) => {
     //stops the default of an action happening - stops disconnect on message send
     e.preventDefault();
-    // if (message.trim() && localStorage.getItem('userName')) {
       socket.emit('message', {
         text: message,
         id: `${socket.id}${Math.random()}`,
@@ -22,7 +21,7 @@ function MessageForm ({socket, user}) {
         sentTime: new Date(),
         file: file
       });
-    // }
+    //Reset message and file
     setMessage('');
     setFile('')
   };
@@ -50,10 +49,10 @@ function MessageForm ({socket, user}) {
   }
   
   function handleRemoveFile () {
+    //Reset the file
     setFile('');
   }
-    console.log('thge file is, ',file)
-    console.log('thge file length is, ',file.length)
+
   return (
     <div className='messageFormCont'>
       <form className="messageForm" onSubmit={handleSendMessage}>
